@@ -8,7 +8,7 @@ const mike = {
   height: 1.93,
   bodyMassIndex: function() {
     this.bmi = this.weight/Math.pow(this.height, 2)
-    return this.weight/Math.pow(this.height, 2)
+    return this.bmi
   } 
 }
 const jack = {
@@ -18,7 +18,7 @@ const jack = {
   height: 1.70,
   bodyMassIndex: function() {
     this.bmi = this.weight/Math.pow(this.height, 2)
-    return this.weight/Math.pow(this.height, 2)
+    return this.bmi
   }
 }
 
