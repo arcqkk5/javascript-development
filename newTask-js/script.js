@@ -32,7 +32,7 @@ const game = {
     ],
   ],
   score: '2:1',
-  scored: ['Kroos', 'Benzema', 'Mingueza'],
+  scored: ['Kroos', 'Benzema', 'Mingueza', 'Benzema'],
   date: 'Apr 10th, 2021',
   odds: {
     team1: 1.48,
@@ -106,10 +106,10 @@ const playerOneTotal = [
 console.log(playerOneTotal);
 
 //5 Деструктизация объекта odds: - done
-const { team1, draw, team2 } = game.odds;
-console.log(team1);
-console.log(draw);
-console.log(team2);
+// const { team1, draw, team2 } = game.odds;
+// console.log(team1);
+// console.log(draw);
+// console.log(team2);
 
 //6 printGoal - done
 game.printGoals('Kroos', 'Benzema', 'Mingueza');
@@ -117,5 +117,51 @@ game.printGoals('Kroos', 'Benzema', 'Mingueza');
 //7 Кто выиграет с большей вероятностью?
 // const winPlayers = team1 > team2 ? 'Win the Players2' : 'Win the Players1';
 // console.log(winPlayers);
-team2 < team1 && console.log('Team2 win');
-team2 > team1 && console.log('Team1 win');
+
+// team2 < team1 && console.log('Team2 win');
+// team2 > team1 && console.log('Team1 win');
+
+//TASK2
+/******************
+1. Loop through the game.scored array and print the name of each player to the console along with the goal number (example: “Goal 1 - Kroos”)
+2. Use a loop to calculate the average odd and print it to the console 
+3. Print 3 odds to the console, but formatted, exactly like this:
+Rate for REAL MADRID victory: 1.48 
+Rate for draw: 2.53
+Rate for BARCELONA victory: 4.25
+Get team names directly from the game object, don't hardcode them 
+4. Bonus: create an object called goalScorers that contains the names of the players who scored as properties and the number of goals as a value. In this game it will look like this:
+{
+  Kroos: 1,
+  Benzema: 1,
+  Mingueza: 1
+}
+ *******************/
+
+//1 - done
+for (const [index, player] of game.scored.entries()) {
+  console.log(`Goal ${index + 1} - ${player}`);
+}
+
+//2 - done
+const oddsNew = Object.values(game.odds);
+let pretVar = 0;
+for (const iter of oddsNew) {
+  pretVar += iter;
+}
+console.log(pretVar / oddsNew.length);
+
+//3 - done
+const printEvent = Object.entries(game.odds);
+for (const [teamName, odd] of printEvent) {
+  const mutableText =
+    teamName === 'draw' ? 'draw' : `${game[teamName]} victory`;
+  console.log(`Rate for ${mutableText}: ${odd}`);
+}
+
+//4
+const gameScore = {};
+for (const player of game.scored) {
+  gameScore[player] ? gameScore[player]++ : (gameScore[player] = 1);
+}
+console.log(gameScore);
