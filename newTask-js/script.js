@@ -115,5 +115,7 @@ console.log(team2);
 game.printGoals('Kroos', 'Benzema', 'Mingueza');
 
 //7 Кто выиграет с большей вероятностью?
-const winPlayers = team1 > team2 ? 'Win the Players2' : 'Win the Players1';
-console.log(winPlayers);
+// const winPlayers = team1 > team2 ? 'Win the Players2' : 'Win the Players1';
+// console.log(winPlayers);
+team2 < team1 && console.log('Team2 win');
+team2 > team1 && console.log('Team1 win');
