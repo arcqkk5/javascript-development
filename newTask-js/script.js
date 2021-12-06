@@ -75,44 +75,44 @@ Then call the function again with the players from game.scored.
 //1 Создать отдельные массивы с игроками разных команд. - done
 // const playerOne = game.players[0];
 // const playerTwo = game.players[1];
-const [playerOne, playerTwo] = game.players;
+// const [playerOne, playerTwo] = game.players;
 
-console.log(playerOne); //Массив игроков первой команды
-console.log(playerTwo); //Массив игроков второй команды
+// console.log(playerOne); //Массив игроков первой команды
+// console.log(playerTwo); //Массив игроков второй команды
 
-//2 Создайте для каждой команды одну переменную вратарь, и массив из оставшихся игроков - done
+// //2 Создайте для каждой команды одну переменную вратарь, и массив из оставшихся игроков - done
 
-// const goalkeeperOne = playerOne[0];
-// const goalkeeperTwo = playerTwo[0];
-const [goalkeeperOne, ...playerNotGoalkeeperOne] = playerOne;
-const [goalkeeperTwo, ...playerNotGoalkeeperTwo] = playerTwo;
+// // const goalkeeperOne = playerOne[0];
+// // const goalkeeperTwo = playerTwo[0];
+// const [goalkeeperOne, ...playerNotGoalkeeperOne] = playerOne;
+// const [goalkeeperTwo, ...playerNotGoalkeeperTwo] = playerTwo;
 
-console.log(goalkeeperOne, goalkeeperTwo);
-console.log(playerNotGoalkeeperOne, playerNotGoalkeeperTwo);
+// console.log(goalkeeperOne, goalkeeperTwo);
+// console.log(playerNotGoalkeeperOne, playerNotGoalkeeperTwo);
 
-//3 Создайте массив из всех игроков (22 человека) - done
-const allPlayers = [...playerOne, ...playerTwo];
-console.log(allPlayers);
+// //3 Создайте массив из всех игроков (22 человека) - done
+// const allPlayers = [...playerOne, ...playerTwo];
+// console.log(allPlayers);
 
-//4 Реал использовал 5 замен, нужен массив игроков из всех игроков реала. - done
-const playerOneTotal = [
-  ...playerOne,
-  'Marcelo',
-  'Isco',
-  'Asensio',
-  'Diaz',
-  'Odriozola',
-];
-console.log(playerOneTotal);
+// //4 Реал использовал 5 замен, нужен массив игроков из всех игроков реала. - done
+// const playerOneTotal = [
+//   ...playerOne,
+//   'Marcelo',
+//   'Isco',
+//   'Asensio',
+//   'Diaz',
+//   'Odriozola',
+// ];
+// console.log(playerOneTotal);
 
-//5 Деструктизация объекта odds: - done
-// const { team1, draw, team2 } = game.odds;
-// console.log(team1);
-// console.log(draw);
-// console.log(team2);
+// //5 Деструктизация объекта odds: - done
+// // const { team1, draw, team2 } = game.odds;
+// // console.log(team1);
+// // console.log(draw);
+// // console.log(team2);
 
-//6 printGoal - done
-game.printGoals('Kroos', 'Benzema', 'Mingueza');
+// //6 printGoal - done
+// game.printGoals('Kroos', 'Benzema', 'Mingueza');
 
 //7 Кто выиграет с большей вероятностью?
 // const winPlayers = team1 > team2 ? 'Win the Players2' : 'Win the Players1';
@@ -139,29 +139,94 @@ Get team names directly from the game object, don't hardcode them
  *******************/
 
 //1 - done
-for (const [index, player] of game.scored.entries()) {
-  console.log(`Goal ${index + 1} - ${player}`);
+// for (const [index, player] of game.scored.entries()) {
+//   console.log(`Goal ${index + 1} - ${player}`);
+// }
+
+// //2 - done
+// const oddsNew = Object.values(game.odds);
+// let pretVar = 0;
+// for (const iter of oddsNew) {
+//   pretVar += iter;
+// }
+// console.log(pretVar / oddsNew.length);
+
+// //3 - done
+// const printEvent = Object.entries(game.odds);
+// for (const [teamName, odd] of printEvent) {
+//   const mutableText =
+//     teamName === 'draw' ? 'draw' : `${game[teamName]} victory`;
+//   console.log(`Rate for ${mutableText}: ${odd}`);
+// }
+
+// //4
+// const gameScore = {};
+// for (const player of game.scored) {
+//   gameScore[player] ? gameScore[player]++ : (gameScore[player] = 1);
+// }
+// console.log(gameScore);
+
+/*********
+ * Your tasks:
+1. Create an array of gameEvents with different game events that can happen (no duplicates).
+2. After the end of the game, it turned out that the yellow card from minute 75 was unfair. So remove this event from the game events log.
+3. Calculate and log the following in the console: “On average, an event happened every 11 minutes” (keep in mind that there are 90 minutes in the game).
+4. Loop over the events map and log each item to the console, with mark whether it is in the first or second half (after 45 minutes) of the game, for example:
+[FIRST HALF] 19:  Goal
+
+ **********/
+
+//1 - done
+
+//Массив событий за матч
+const events = new Map([
+  [19, 'Goal'],
+  [21, 'Substitution'],
+  [43, 'Goal'],
+  [56, 'Substitution'],
+  [69, 'Yellow card'],
+  [73, 'Substitution'],
+  [75, 'Yellow card'],
+  [79, 'Substitution'],
+  [81, 'Red card'],
+  [93, 'Goal'],
+]);
+
+// Нужно Создать Set из данного Map, взяв из него только значения и поместить их в Set
+// Начнём
+const eventsSet = new Set();
+for (const [minute, event] of events) {
+  eventsSet.add(event);
 }
+const myArr = [...eventsSet];
+console.log(myArr);
 
 //2 - done
-const oddsNew = Object.values(game.odds);
-let pretVar = 0;
-for (const iter of oddsNew) {
-  pretVar += iter;
-}
-console.log(pretVar / oddsNew.length);
+events.delete(75);
+console.log(events);
 
 //3 - done
-const printEvent = Object.entries(game.odds);
-for (const [teamName, odd] of printEvent) {
-  const mutableText =
-    teamName === 'draw' ? 'draw' : `${game[teamName]} victory`;
-  console.log(`Rate for ${mutableText}: ${odd}`);
+
+// Частный случай, не будет рабоать, если после 90 минуты ничего не происходило
+let tmp = 0;
+for (const [minute, event] of events) {
+  minute < 90
+    ? tmp++
+    : console.log(`В среднем событие происходило каждые ${90 / tmp} минут`);
 }
 
-//4
-const gameScore = {};
-for (const player of game.scored) {
-  gameScore[player] ? gameScore[player]++ : (gameScore[player] = 1);
+// или Вариант2
+let tmp2 = 0;
+for (const [minute2, event2] of events) {
+  if (minute2 < 90) {
+    tmp2++;
+  }
 }
-console.log(gameScore);
+console.log(`В среднем событие происходило каждые ${90 / tmp2} минут`);
+
+//4 - done
+for (const [min, e] of events) {
+  min <= 45
+    ? console.log(`[FIRST HALF] ${min}: ${e}`)
+    : console.log(`[SECOND HALF] ${min}: ${e}`);
+}
