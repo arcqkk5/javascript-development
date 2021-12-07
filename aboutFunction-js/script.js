@@ -74,15 +74,61 @@
 // converter('Hello to everyone!', upperFirstWord);
 // converter('Hello to everyone!', removeSpaces);
 
-const greet = (greetingText) => {
-  return function (firstName) {
-    console.log(`${greetingText} ${firstName}`);
-  };
+// const greet = (greetingText) => {
+//   return function (firstName) {
+//     console.log(`${greetingText} ${firstName}`);
+//   };
+// };
+// // или 2 способ
+
+// const newGreet = (greetingText) => (firstName) =>
+//   console.log(`${greetingText} ${firstName}`);
+
+// greet('Hi')('Grigoriy');
+// newGreet('Hello')('Grigoriy');
+
+//Методы call() and apply()
+// const book = function (flightNumber, passangerName) {
+//   console.log(
+//     `${passangerName} has booked a ticket on ${this.airLineName} flight ${this.airLineCode}${flightNumber}`
+//   );
+//   this.bookings.push({
+//     flight: `${this.airLineCode}${flightNumber}`,
+//     passangerName,
+//   });
+// };
+
+const airLine1 = {
+  airLineName: 'SkyUp',
+  airLineCode: 'SU',
+  bookings: [],
+  book(flightNumber, passangerName) {
+    console.log(
+      `${passangerName} has booked a ticket on ${this.airLineName} flight ${this.airLineCode}${flightNumber}`
+    );
+    this.bookings.push({
+      flight: `${this.airLineCode}${flightNumber}`,
+      passangerName,
+    });
+  },
 };
-// или 2 способ
 
-const newGreet = (greetingText) => (firstName) =>
-  console.log(`${greetingText} ${firstName}`);
+// airLine2.book(346, 'Grigoriy Lafutkin');
+// airLine2.book(347, 'New Passanger MR.');
+// console.log(airLine2);
 
-greet('Hi')('Grigoriy');
-newGreet('Hello')('Grigoriy');
+const airLine2 = {
+  airLineName: 'EuroEva',
+  airLineCode: 'EE',
+  bookings: [],
+};
+const book = airLine1.book;
+
+//This doesen't work
+//book(345, 'Linda)
+
+// book.call(airLine1, 345, 'Linda');
+
+//bind()
+const bookAirLines2 = book.bind(airLine2);
+bookAirLines2(45, 'John');
